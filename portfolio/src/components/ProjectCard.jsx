@@ -4,22 +4,71 @@ import { useRef, useEffect, useState } from 'react';
 export const ProjectCard = ({ project, index }) => {
   const videoRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [connectionType, setConnectionType] = useState('unknown');
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
+    // Detect connection type
+    const detectConnection = () => {
+      if (navigator.connection) {
+        setConnectionType(navigator.connection.effectiveType);
+        // Listen for connection changes
+        navigator.connection.addEventListener('change', () => {
+          setConnectionType(navigator.connection.effectiveType);
+        });
+      }
+    };
+
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
+    
     handleResize();
+    detectConnection();
     window.addEventListener('resize', handleResize);
+    
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Handle video load events
+  const handleVideoLoad = () => {
+    setVideoLoaded(true);
+    setVideoError(false);
+  };
+
+  const handleVideoError = () => {
+    setVideoError(true);
+    setVideoLoaded(false);
+  };
+
+  // Only load videos on good connections or if user explicitly requests
+  const shouldLoadVideo = () => {
+    // Always load if user clicked view project
+    if (videoLoaded) return true;
+    
+    // Don't load videos on slow connections
+    if (['slow-2g', '2g', '3g'].includes(connectionType)) {
+      return false;
+    }
+    
+    return true;
+  };
 
   const handleViewProject = () => {
     const videoEl = videoRef.current;
     if (!videoEl) return;
 
-    // Play and fullscreen the video
-    videoEl.play();
+    // Try to play the video even if it wasn't preloaded
+    const playPromise = videoEl.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        // If video fails to play, show the fallback image
+        setVideoError(true);
+      });
+    }
+    
     if (videoEl.requestFullscreen) {
       videoEl.requestFullscreen();
     } else if (videoEl.webkitEnterFullscreen) {
@@ -43,52 +92,49 @@ export const ProjectCard = ({ project, index }) => {
       <div className="md:w-1/2">
         <div className="card overflow-hidden rounded-xl shadow-lg">
           <div className="relative w-full h-[300px] bg-black">
-            {isMobile ? (
-              <>
-                {/* <img
-                  src={project.image || '/fallback.jpg'}
-                  ref={videoRef}
-                  alt="Project Poster"
-                  className="w-full h-full object-cover"
-                /> */}
-                {/* Hidden video for fullscreen */}
-                {/* <video
-                  ref={videoRef}
-                  src={project.video}
-                  poster={project.image || '/fallback.jpg'}
-                  // className="hidden"
-                  controls
-                  playsInline
-                  loop
-                  autoPlay
-                  preload="metadata"
-                /> */}
-                <video
-                ref={videoRef}
-                // className="absolute inset-0 w-full h-full object-cover"
-                src={project.video}
-                muted
-                loop
-                autoPlay
-                playsInline
-                preload="metadata"
-                poster={project.image || "/fallback.jpg"}
-              ></video>
-              </>
+            {!shouldLoadVideo() || videoError ? (
+              // Show poster image for slow connections or if video fails
+              <img
+                src={project.image || "/fallback.jpg"}
+                alt={project.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
             ) : (
               <video
                 ref={videoRef}
-                className="absolute inset-0 w-full h-full object-cover"
-                src={project.video}
+                // className="absolute inset-0 w-full h-full object-cover"
+                src={shouldLoadVideo() ? project.video : ''}
                 muted
                 loop
-                autoPlay
+                autoPlay={shouldLoadVideo()}
                 playsInline
-                preload="metadata"
+                preload="none" // Changed to none to prevent auto-loading
                 poster={project.image || "/fallback.jpg"}
+                onLoadedData={handleVideoLoad}
+                onError={handleVideoError}
               >
                 Your browser does not support the video tag.
               </video>
+            )}
+            
+            {/* Loading indicator */}
+            {!videoLoaded && shouldLoadVideo() && !videoError && (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-70">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+              </div>
+            )}
+            
+            {/* Play button overlay for when video isn't autoplaying */}
+            {!shouldLoadVideo() && (
+              <button 
+                onClick={handleViewProject}
+                className="absolute inset-0 flex items-center justify-center w-full h-full bg-black bg-opacity-40 transition-opacity hover:bg-opacity-20"
+                aria-label="Load and play video"
+              >
+                <svg className="w-16 h-16 text-white opacity-80" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                </svg>
+              </button>
             )}
           </div>
         </div>
@@ -112,7 +158,7 @@ export const ProjectCard = ({ project, index }) => {
             onClick={handleViewProject}
             className="btn-primary"
           >
-            View Project
+            {shouldLoadVideo() && !videoError ? 'View Project' : 'View Demo'}
           </motion.button>
           <motion.a
             whileHover={{ scale: 1.05 }}
