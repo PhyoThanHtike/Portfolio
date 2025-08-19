@@ -8,10 +8,22 @@ import jungle5 from "../assets/jungle5-Photoroom.png";
 import background from "../assets/background-Photoroom.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const Welcome = () => {
+const Welcome = ({ registerImage }) => {
   const { scrollY } = useScroll();
-
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    // Register all images
+    if (registerImage) {
+      registerImage(man_cliff);
+      registerImage(jungle1);
+      registerImage(jungle2);
+      registerImage(jungle3);
+      registerImage(jungle4);
+      registerImage(jungle5);
+      registerImage(background);
+    }
+  }, [registerImage]);
 
   useEffect(() => {
     const handleResize = () => setScreenHeight(window.innerHeight);
@@ -24,7 +36,7 @@ const Welcome = () => {
   const xHero = useTransform(scrollY, [0, screenHeight * 0.5], [100, 0]);
   const opacityCity = useTransform(
     scrollY,
-    [0, screenHeight * 0.2,screenHeight * 0.4, screenHeight * 0.5],
+    [0, screenHeight * 0.2, screenHeight * 0.4, screenHeight * 0.5],
     [1, 0.9, 0.5, 0]
   );
   const opacityHero = useTransform(scrollY, [0, screenHeight * 0.5], [1, 1]);
@@ -48,11 +60,7 @@ const Welcome = () => {
   );
 
   // Text rotation logic
-  const titles = [
-    "Software Engineer",
-    "Data Scientist",
-    "AI Engineer",
-  ];
+  const titles = ["Software Engineer", "Data Scientist", "AI Engineer"];
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -63,7 +71,7 @@ const Welcome = () => {
       setTimeout(() => {
         setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
         setIsTyping(true);
-      }, 1000); // Short pause before typing next title
+      }, 1000);
     };
 
     const interval = setInterval(rotateTitles, 3000);
@@ -85,7 +93,7 @@ const Welcome = () => {
       } else {
         clearInterval(typingInterval);
       }
-    }, 50); // Typing speed
+    }, 50);
 
     return () => clearInterval(typingInterval);
   }, [currentTitleIndex, isTyping]);
@@ -145,7 +153,7 @@ const Welcome = () => {
               opacity: opacityHero,
               y: [yjungle, yjungle2, yjungle3, yjungle4, yjungle5][index],
               x: [xjungle, xjungle2, xjungle3, xjungle4, xjungle5][index],
-              height: "800px"
+              height: "800px",
             }}
             className="absolute z-20 w-full h-full object-contain"
             src={jungle}
@@ -159,7 +167,7 @@ const Welcome = () => {
             opacity: opacityHero,
             y: yHero,
             x: xHero,
- // Fixed width (adjust to your image's natural size)
+            // Fixed width (adjust to your image's natural size)
             height: "800px", // Fixed height (adjust as needed)
           }}
           className="absolute z-30 object-contain pointer-events-none"
