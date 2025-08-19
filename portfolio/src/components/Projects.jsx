@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ProjectCard } from "./ProjectCard";
 import { DataScienceCard } from "./DataScienceCard";
 import { useState } from "react";
-import ChestXRay from "../assets/ChestXRay.png";
+import ChestXRay from "../assets/ChestXray.png";
 import Sales from "../assets/Sales.png";
 import Marketing from "../assets/Marketing.png";
 import HR from "../assets/HR.png";
