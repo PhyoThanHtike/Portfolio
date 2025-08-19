@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { FaFilePdf } from "react-icons/fa";
+import logo from "../assets/Logo.png";
 
 export const Navigation = ({
   activeSection,
@@ -36,14 +37,14 @@ export const Navigation = ({
     bg-blue-900/70 md:bg-secondary
     backdrop-blur-md"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 py-2 sm:px-4 lg:px-6">
         <div className="flex justify-between h-8">
           <div className="flex items-center justify-center">
-            <span className="text-xl font-bold">Ethan...</span>
+            <img src={logo} className="w-12 h-12 " alt="logo" />
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center text-lg space-x-8">
             {["about", "projects", "contact"].map((item) => (
               <button
                 key={item}
@@ -58,8 +59,7 @@ export const Navigation = ({
               </button>
             ))}
             <a
-              href="/resume.pdf"
-              download
+              href="https://drive.google.com/file/d/1locBt5Y-_pzoyGRYVssGMsOVKBuhrzN5/view"
               className="btn-primary flex items-center gap-2"
             >
               <FaFilePdf /> Resume
@@ -103,8 +103,9 @@ export const Navigation = ({
                 </button>
               ))}
               <a
-                href="/resume.pdf"
-                download
+                href="https://drive.google.com/file/d/1locBt5Y-_pzoyGRYVssGMsOVKBuhrzN5/view"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-gray-400 hover:bg-gray-700 hover:text-indigo-400 flex items-center gap-2"
               >
                 <FaFilePdf /> Resume

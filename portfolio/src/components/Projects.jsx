@@ -79,6 +79,15 @@ const webProjects = [
       "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755368239/Screen_Recording_2025-08-17_at_1.01.16_AM_q3hqtr.mp4",
     url: "https://github.com/Ethan-13/MiniProject",
   },
+  {
+    id: 6,
+    title: "Portfolio",
+    description: "Simple Portfolio page with animations",
+    technologies: ["React", "Tailwind CSS", "framer-motion"],
+    video:
+      "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755615972/Screen_Recording_2025-08-19_at_9.51.42_PM_1_cv0qal.mp4",
+    url: "https://github.com/PhyoThanHtike/Portfolio",
+  },
 ];
 
 const dataScienceProjects = [

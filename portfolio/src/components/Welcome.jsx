@@ -116,7 +116,7 @@ const Welcome = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xl md:text-2xl font-light text-indigo-400 mb-2"
+            className="text-xl md:text-2xl text-indigo-400 mb-2"
           >
             I'm Junior
           </motion.p>
