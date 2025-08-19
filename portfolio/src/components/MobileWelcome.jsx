@@ -1,5 +1,3 @@
-
-// bg-gradient-to-b from-purple-900 via-purple-900 to-indigo-900
 // bg-gradient-to-b from-purple-900 via-purple-900 to-indigo-900
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -116,7 +114,7 @@ const Particles = React.memo(() => {
         Icon: isIcon ? Icon : null,
         top: 8 + Math.random() * 84, // keep within safe bounds
         left: 6 + Math.random() * 88,
-        size: isIcon ? 22 + Math.floor(Math.random() * 10) : 8 + Math.floor(Math.random() * 3),
+        size: isIcon ? 25 + Math.floor(Math.random() * 10) : 8 + Math.floor(Math.random() * 3),
         color: isIcon ? colors[name] || "#ffffff" : "#ffffff",
         amplitudeX: 14 + Math.random() * 52, // px movement range
         amplitudeY: 10 + Math.random() * 50,
