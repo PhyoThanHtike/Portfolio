@@ -69,7 +69,7 @@ export const Hero = ({ scrollToSection }) => {
   ];
 
   return (
-    <section id="about" className="flex items-center justify-center py-10 md:py-0 bg-primary relative overflow-hidden">
+    <section id="about" className="flex items-center justify-center py-10 md:py-0 xl:py-20 bg-primary relative overflow-hidden">
       {/* Animated background elements */}
       <motion.div 
         initial={{ opacity: 0 }}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Navigation } from './components/Nav';
 import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
@@ -6,6 +6,7 @@ import { Contact } from './components/Contact';
 import Welcome from './components/Welcome';
 import MobileWelcome from './components/MobileWelcome';
 
+// Loading Component with Animation
 // Loading Component with Animation
 const LoadingScreen = ({ progress }) => {
   return (
@@ -19,7 +20,8 @@ const LoadingScreen = ({ progress }) => {
             style={{
               top: '50%',
               left: '50%',
-              transform: `rotate(${i * 45}deg) translate(0, -35px)`,
+              marginTop: '-0.5rem',
+              marginLeft: '-0.5rem',
               animation: `pulse 1.5s infinite ${i * 0.2}s`,
             }}
           />
@@ -27,6 +29,9 @@ const LoadingScreen = ({ progress }) => {
         
         {/* Central circle */}
         <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+            <span className="text-indigo-900 font-bold text-xs">{progress}%</span>
+          </div>
         </div>
       </div>
       
@@ -40,8 +45,18 @@ const LoadingScreen = ({ progress }) => {
       
       <style>{`
         @keyframes pulse {
-          0%, 100% { opacity: 0.3; transform: rotate(0deg) translate(0, -35px) scale(0.8); }
-          50% { opacity: 1; transform: rotate(0deg) translate(0, -35px) scale(1.2); }
+          0% {
+            transform: rotate(0deg) translate(0, -35px) scale(0.8);
+            opacity: 0.3;
+          }
+          50% {
+            transform: rotate(0deg) translate(0, -35px) scale(1.2);
+            opacity: 1;
+          }
+          100% {
+            transform: rotate(0deg) translate(0, -35px) scale(0.8);
+            opacity: 0.3;
+          }
         }
       `}</style>
     </div>
@@ -51,27 +66,45 @@ const LoadingScreen = ({ progress }) => {
 const App = () => {
   const [activeSection, setActiveSection] = useState('about');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [screenSize, setScreenSize] = useState('desktop');
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const imageUrls = useRef(new Set());
 
-  // Function to collect image URLs from components
-  const registerImage = (url) => {
+  // Use useCallback to memoize the registerImage function
+  const registerImage = useCallback((url) => {
     if (url && !imageUrls.current.has(url)) {
       imageUrls.current.add(url);
     }
-  };
+  }, []);
 
-  // Check if the screen is mobile size
+  // Check screen size and set appropriate state
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      
+      // For MacBook Air M1 (13.3" with 2560×1600 resolution)
+      // The viewport width at 100% zoom is around 1440px
+      // At 1500px breakpoint, we'll show MobileWelcome for larger screens
+      if (width < 768) {
+        setScreenSize('mobile');
+      } else if (width >= 768 && width < 1024) {
+        setScreenSize('tablet');
+      } else if (width >= 1024 && width < 1500) {
+        setScreenSize('desktop'); // MacBook Air M1 and similar 13-14" laptops
+      } else {
+        setScreenSize('xl'); // 15" and larger laptops/screens
+      }
     };
 
-    checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-    return () => window.removeEventListener('resize', checkIfMobile);
+    // Initial check
+    checkScreenSize();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   // Preload all images
@@ -125,6 +158,16 @@ const App = () => {
     }
   };
 
+  // Determine which welcome component to render
+  const renderWelcomeComponent = () => {
+    // Use MobileWelcome for extra large screens (15" and above)
+    if (screenSize === 'xl') {
+      return <MobileWelcome registerImage={registerImage} />;
+    }
+    // Use regular Welcome for all other sizes
+    return <Welcome registerImage={registerImage} />;
+  };
+
   return (
     <div className="min-h-screen bg-primary text-gray-100">
       {!imagesLoaded && <LoadingScreen progress={loadingProgress} />}
@@ -137,13 +180,10 @@ const App = () => {
       />
 
       <main className={!imagesLoaded ? "opacity-0" : "opacity-100 transition-opacity duration-500"}>
-        {isMobile ? 
-          <MobileWelcome /> : 
-          <Welcome registerImage={registerImage} />
-        }
-        <Hero scrollToSection={scrollToSection}/>
-        <Projects />
-        <Contact/>
+        {renderWelcomeComponent()}
+        <Hero scrollToSection={scrollToSection} registerImage={registerImage} />
+        <Projects registerImage={registerImage} />
+        <Contact registerImage={registerImage} />
       </main>
 
       <footer className="bg-gray-800 text-gray-300 py-8">
