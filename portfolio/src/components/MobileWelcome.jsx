@@ -1,6 +1,7 @@
 
 // bg-gradient-to-b from-purple-900 via-purple-900 to-indigo-900
-import React, { useEffect, useMemo, useState } from "react";
+// bg-gradient-to-b from-purple-900 via-purple-900 to-indigo-900
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowDown } from "react-icons/fi";
 import { FaReact, FaPython, FaNodeJs, FaDatabase, FaJava } from "react-icons/fa";
@@ -13,7 +14,7 @@ import { SiTensorflow, SiTypescript, SiPytorch, SiSpringboot, SiTailwindcss, SiJ
 // • Text floats gently; roles type with a blinking caret.
 // • Explore button + Scroll indicator both smooth-scroll to #about.
 
-const FloatingText = ({ children, delay = 0 }) => (
+const FloatingText = React.memo(({ children, delay = 0 }) => (
   <motion.div
     initial={{ opacity: 0, y: 14 }}
     animate={{ opacity: 1, y: [0, -6, 0] }}
@@ -22,9 +23,9 @@ const FloatingText = ({ children, delay = 0 }) => (
   >
     {children}
   </motion.div>
-);
+));
 
-const BackgroundGlow = () => {
+const BackgroundGlow = React.memo(() => {
   return (
     <>
       {/* Soft, shifting multi-radial wash */}
@@ -55,9 +56,9 @@ const BackgroundGlow = () => {
       />
     </>
   );
-};
+});
 
-const Particle = ({ item }) => {
+const Particle = React.memo(({ item }) => {
   const { type, top, left, size, color, amplitudeX, amplitudeY, delay, duration } = item;
 
   // We keep top/left static and animate x/y with transform for smoother perf
@@ -81,9 +82,9 @@ const Particle = ({ item }) => {
       )}
     </motion.div>
   );
-};
+});
 
-const Particles = () => {
+const Particles = React.memo(() => {
   const Icons = [FaReact, FaPython, FaNodeJs, SiTensorflow, SiTypescript, FaDatabase, SiPytorch, SiSpringboot, SiTailwindcss, SiJavascript, SiLangchain, FaJava];
   const colors = {
     FaReact: "#61DAFB",
@@ -102,7 +103,7 @@ const Particles = () => {
 
   // Pre-generate once to avoid jitter on re-render
   const items = useMemo(() => {
-    const total = 18; // keep it light for mobile
+    const total = 14; // reduced from 18 for better performance
     const arr = [];
 
     for (let i = 0; i < total; i++) {
@@ -115,7 +116,7 @@ const Particles = () => {
         Icon: isIcon ? Icon : null,
         top: 8 + Math.random() * 84, // keep within safe bounds
         left: 6 + Math.random() * 88,
-        size: isIcon ? 18 + Math.floor(Math.random() * 10) : 8 + Math.floor(Math.random() * 3),
+        size: isIcon ? 22 + Math.floor(Math.random() * 10) : 8 + Math.floor(Math.random() * 3),
         color: isIcon ? colors[name] || "#ffffff" : "#ffffff",
         amplitudeX: 14 + Math.random() * 52, // px movement range
         amplitudeY: 10 + Math.random() * 50,
@@ -133,13 +134,18 @@ const Particles = () => {
       ))}
     </div>
   );
-};
+});
 
 const MobileWelcome = () => {
   const roles = ["Software Engineer", "AI Engineer", "Data Scientist"];
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+
+  const scrollToAbout = useCallback(() => {
+    const el = document.getElementById("about");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   // Cycle roles with a brief pause for readability
   useEffect(() => {
@@ -159,6 +165,7 @@ const MobileWelcome = () => {
       setDisplayText("");
       return;
     }
+    
     const text = roles[currentRole];
     let i = 0;
     const typing = setInterval(() => {
@@ -171,11 +178,6 @@ const MobileWelcome = () => {
     }, 85);
     return () => clearInterval(typing);
   }, [currentRole, isTyping]);
-
-  const scrollToAbout = () => {
-    const el = document.getElementById("about");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-gradient-to-b from-blue-900 via-indigo-900 to-primary">
@@ -248,5 +250,4 @@ const MobileWelcome = () => {
   );
 };
 
-export default MobileWelcome;
-
+export default React.memo(MobileWelcome);
