@@ -161,7 +161,7 @@ const App = () => {
   // Determine which welcome component to render
   const renderWelcomeComponent = () => {
     // Use MobileWelcome for extra large screens (15" and above)
-    if (screenSize === 'xl') {
+    if (screenSize === 'xl' || screenSize==='mobile') {
       return <MobileWelcome registerImage={registerImage} />;
     }
     // Use regular Welcome for all other sizes
