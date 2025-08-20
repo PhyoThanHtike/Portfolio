@@ -91,11 +91,12 @@ const App = () => {
       } else if (width >= 768 && width < 1024) {
         setScreenSize('tablet');
       } else if (width >= 1024 && width < 1500) {
-        setScreenSize('desktop'); // MacBook Air M1 and similar 13-14" laptops
+        setScreenSize('laptop'); // MacBook Air M1 and similar 13-14" laptops
       } else {
         setScreenSize('xl'); // 15" and larger laptops/screens
       }
     };
+  
 
     // Initial check
     checkScreenSize();
