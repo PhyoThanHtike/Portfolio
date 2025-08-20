@@ -34,7 +34,7 @@ export const Navigation = ({
   return (
     <nav
       className="w-full sticky md:static top-0 z-50 py-4 
-    bg-blue-900/70 md:bg-secondary
+    bg-blue-900/70 md:bg-secondary 2xl:bg-blue-900/70
     backdrop-blur-md"
     >
       <div className="max-w-6xl mx-auto px-4 py-2 sm:px-4 lg:px-6">
