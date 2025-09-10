@@ -103,7 +103,7 @@ export const Navigation = ({
                 </button>
               ))}
               <a
-                href="https://drive.google.com/file/d/1locBt5Y-_pzoyGRYVssGMsOVKBuhrzN5/view"
+                href="https://drive.google.com/file/d/1Vs8YVwAI50htPp0tMnMF3KmtR4j_nkhi/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block px-3 py-2 rounded-md text-base font-medium w-full text-left text-gray-400 hover:bg-gray-700 hover:text-indigo-400 flex items-center gap-2"
