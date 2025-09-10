@@ -90,7 +90,7 @@ const App = () => {
         setScreenSize('mobile');
       } else if (width >= 768 && width < 1024) {
         setScreenSize('tablet');
-      } else if (width >= 1024 && width < 1500) {
+      } else if (width >= 1024 && width < 1536) {
         setScreenSize('laptop'); // MacBook Air M1 and similar 13-14" laptops
       } else {
         setScreenSize('xl'); // 15" and larger laptops/screens

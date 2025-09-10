@@ -28,11 +28,12 @@ const webProjects = [
     video:
       "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755261660/TrimmedQuiz_fwh4t7.mp4",
     url: "https://github.com/PhyoThanHtike/RealTimeQuiz",
+    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757537645/AI_powered_realtime_quiz_bcuech.png"
   },
   {
     id: 2,
     title: "Doi Tung E-Learning Platform",
-    description: "An E-Learning app for a corporate training platform ",
+    description: "A corporate training platform providing structured courses, video lessons, assessments, and progress tracking to support employee development and continuous learning.",
     technologies: [
       "React",
       "TypeScript",
@@ -44,21 +45,23 @@ const webProjects = [
     video:
       "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755330475/TrimmedDoiTung_vnyw1u.mp4",
     url: "https://github.com/Nayyelin-14/DoiTung",
+    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757537645/DoiTung_Elearning_vtlk58.png"
   },
   {
     id: 3,
     title: "Agentic AI Comarade",
     description:
-      "Personal AI comarade with sending notifications/emails, writing codes and searching web functionalities",
+      "A personal AI assistant capable of sending notifications and emails, writing code, and performing web searches to boost productivity and support daily tasks.",
     technologies: ["Python", "LangGraph", "Gradio"],
     video:
       "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755356985/TrimmedAgent_s86lts.mp4",
     url: "#",
+    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757537645/PersonalSideKick_nljzmv.png"
   },
   {
     id: 4,
     title: "Real-Time Chat App",
-    description: "Chat app with Real-Time conversation",
+    description: "A messaging application enabling seamless real-time conversations with instant delivery and an intuitive interface for efficient communication.",
     technologies: [
       "React",
       "Tailwind CSS",
@@ -69,24 +72,37 @@ const webProjects = [
     video:
       "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755367717/Screen_Recording_2025-08-17_at_12.15.55_AM_trzybw.mp4",
     url: "https://github.com/PhyoThanHtike/ChatApp",
+    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757537647/Realtime_Chatapp_ndb9im.png"
   },
   {
     id: 5,
+    title: "E-Signature App",
+    description: "A digital signing platform that enables users to upload or select templates, send signature requests to multiple recipients, and securely sign documents online with email integration and signature pad support.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Java", "Spring Boot", "MongoDB"],
+    video:
+      "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755368239/Screen_Recording_2025-08-17_at_1.01.16_AM_q3hqtr.mp4",
+    url: "https://github.com/zarn-chalamet/e-signature",
+    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757539284/Screenshot_2025-09-11_at_4.20.18_AM_n9rip7.png"
+  },
+  {
+    id: 6,
     title: "MFU Sport Complex Booking App",
-    description: "MFU booking app for various sports around the campus",
+    description: "MFU booking app for various sports around the campus, allowing students and staff to easily reserve facilities, manage bookings, and stay updated with the latest sports news and events.",
     technologies: ["React", "Tailwind CSS", "Node.js", "Express.js"],
     video:
       "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755368239/Screen_Recording_2025-08-17_at_1.01.16_AM_q3hqtr.mp4",
     url: "https://github.com/Ethan-13/MiniProject",
+    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757537645/MFU_sportsComplex_uxueqn.png"
   },
   {
-    id: 6,
+    id: 7,
     title: "Portfolio",
     description: "Simple Portfolio page with animations",
     technologies: ["React", "Tailwind CSS", "framer-motion"],
     video:
       "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755615972/Screen_Recording_2025-08-19_at_9.51.42_PM_1_cv0qal.mp4",
     url: "https://github.com/PhyoThanHtike/Portfolio",
+    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757537646/Portfolio_juxz6c.png"
   },
 ];
 
@@ -211,7 +227,7 @@ export const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-primary relative overflow-hidden">
+    <section id="projects" className="pb-20 bg-primary relative overflow-hidden">
       {/* Animated background elements */}
       {floatingShapes.map((shape) => (
         <motion.div
