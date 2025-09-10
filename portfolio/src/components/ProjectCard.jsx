@@ -63,7 +63,7 @@ export const ProjectCard = ({ project, index }) => {
       opacity: 1,
       x: 0,
       scale: 1,
-      transition: { duration: 0.8, type: "spring", bounce: 0.3 },
+      transition: { duration: 1.8, type: "spring", bounce: 0.3 },
     },
   };
 
