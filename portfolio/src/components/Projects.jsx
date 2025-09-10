@@ -14,7 +14,7 @@ const webProjects = [
     id: 1,
     title: "AI-Powered Real-Time Quiz App",
     description:
-      "Real-Time Quiz App with Creating/Joining Quiz Rooms functionalities and AI generated quizzes",
+      "Real-Time Quiz App with creating/joining quiz rooms, featuring AI-generated quizzes, instant feedback, and adaptive difficulty for engaging multiplayer learning experiences.",
     technologies: [
       "React",
       "Node.js",
