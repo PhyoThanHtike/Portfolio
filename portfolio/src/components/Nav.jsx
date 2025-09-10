@@ -59,7 +59,7 @@ export const Navigation = ({
               </button>
             ))}
             <a
-              href="https://drive.google.com/file/d/1locBt5Y-_pzoyGRYVssGMsOVKBuhrzN5/view"
+              href="https://drive.google.com/file/d/1Vs8YVwAI50htPp0tMnMF3KmtR4j_nkhi/view?usp=sharing"
               className="btn-primary flex items-center gap-2"
             >
               <FaFilePdf /> Resume
