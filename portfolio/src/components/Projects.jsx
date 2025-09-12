@@ -18,6 +18,7 @@ const webProjects = [
     technologies: [
       "React",
       "Node.js",
+      "Socket.io",
       "MongoDB",
       "Typescript",
       "Tailwind CSS",
