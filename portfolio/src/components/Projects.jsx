@@ -50,6 +50,16 @@ const webProjects = [
   },
   {
     id: 3,
+    title: "E-Signature App",
+    description: "A digital signing platform that enables users to upload or select templates, send signature requests to multiple recipients, and securely sign documents online with email integration and signature pad support.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Java", "Spring Boot", "MongoDB"],
+    video:
+      "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755368239/Screen_Recording_2025-08-17_at_1.01.16_AM_q3hqtr.mp4",
+    url: "https://github.com/zarn-chalamet/e-signature",
+    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757539284/Screenshot_2025-09-11_at_4.20.18_AM_n9rip7.png"
+  },
+  {
+    id: 4,
     title: "Agentic AI Comarade",
     description:
       "A personal AI assistant capable of sending notifications and emails, writing code, and performing web searches to boost productivity and support daily tasks.",
@@ -60,7 +70,7 @@ const webProjects = [
     image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757537645/PersonalSideKick_nljzmv.png"
   },
   {
-    id: 4,
+    id: 5,
     title: "Real-Time Chat App",
     description: "A messaging application enabling seamless real-time conversations with instant delivery and an intuitive interface for efficient communication.",
     technologies: [
@@ -74,16 +84,6 @@ const webProjects = [
       "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755367717/Screen_Recording_2025-08-17_at_12.15.55_AM_trzybw.mp4",
     url: "https://github.com/PhyoThanHtike/ChatApp",
     image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757537647/Realtime_Chatapp_ndb9im.png"
-  },
-  {
-    id: 5,
-    title: "E-Signature App",
-    description: "A digital signing platform that enables users to upload or select templates, send signature requests to multiple recipients, and securely sign documents online with email integration and signature pad support.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Java", "Spring Boot", "MongoDB"],
-    video:
-      "https://res.cloudinary.com/dka5cmrlx/video/upload/v1755368239/Screen_Recording_2025-08-17_at_1.01.16_AM_q3hqtr.mp4",
-    url: "https://github.com/zarn-chalamet/e-signature",
-    image: "https://res.cloudinary.com/dae9rkvbi/image/upload/v1757539284/Screenshot_2025-09-11_at_4.20.18_AM_n9rip7.png"
   },
   {
     id: 6,
